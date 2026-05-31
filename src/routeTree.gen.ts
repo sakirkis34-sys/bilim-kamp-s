@@ -9,51 +9,163 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as SiteRouteImport } from './routes/_site'
+import { Route as SiteIndexRouteImport } from './routes/_site.index'
+import { Route as SiteKampRouteImport } from './routes/_site.kamp'
+import { Route as SiteIletisimRouteImport } from './routes/_site.iletisim'
+import { Route as SiteEgitmenlerRouteImport } from './routes/_site.egitmenler'
+import { Route as SiteBasvuruRouteImport } from './routes/_site.basvuru'
 
-const IndexRoute = IndexRouteImport.update({
+const SiteRoute = SiteRouteImport.update({
+  id: '/_site',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteIndexRoute = SiteIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteKampRoute = SiteKampRouteImport.update({
+  id: '/kamp',
+  path: '/kamp',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteIletisimRoute = SiteIletisimRouteImport.update({
+  id: '/iletisim',
+  path: '/iletisim',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteEgitmenlerRoute = SiteEgitmenlerRouteImport.update({
+  id: '/egitmenler',
+  path: '/egitmenler',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteBasvuruRoute = SiteBasvuruRouteImport.update({
+  id: '/basvuru',
+  path: '/basvuru',
+  getParentRoute: () => SiteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof SiteIndexRoute
+  '/basvuru': typeof SiteBasvuruRoute
+  '/egitmenler': typeof SiteEgitmenlerRoute
+  '/iletisim': typeof SiteIletisimRoute
+  '/kamp': typeof SiteKampRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/basvuru': typeof SiteBasvuruRoute
+  '/egitmenler': typeof SiteEgitmenlerRoute
+  '/iletisim': typeof SiteIletisimRoute
+  '/kamp': typeof SiteKampRoute
+  '/': typeof SiteIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_site': typeof SiteRouteWithChildren
+  '/_site/basvuru': typeof SiteBasvuruRoute
+  '/_site/egitmenler': typeof SiteEgitmenlerRoute
+  '/_site/iletisim': typeof SiteIletisimRoute
+  '/_site/kamp': typeof SiteKampRoute
+  '/_site/': typeof SiteIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/basvuru' | '/egitmenler' | '/iletisim' | '/kamp'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/basvuru' | '/egitmenler' | '/iletisim' | '/kamp' | '/'
+  id:
+    | '__root__'
+    | '/_site'
+    | '/_site/basvuru'
+    | '/_site/egitmenler'
+    | '/_site/iletisim'
+    | '/_site/kamp'
+    | '/_site/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  SiteRoute: typeof SiteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_site': {
+      id: '/_site'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof SiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_site/': {
+      id: '/_site/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof SiteIndexRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/kamp': {
+      id: '/_site/kamp'
+      path: '/kamp'
+      fullPath: '/kamp'
+      preLoaderRoute: typeof SiteKampRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/iletisim': {
+      id: '/_site/iletisim'
+      path: '/iletisim'
+      fullPath: '/iletisim'
+      preLoaderRoute: typeof SiteIletisimRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/egitmenler': {
+      id: '/_site/egitmenler'
+      path: '/egitmenler'
+      fullPath: '/egitmenler'
+      preLoaderRoute: typeof SiteEgitmenlerRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/basvuru': {
+      id: '/_site/basvuru'
+      path: '/basvuru'
+      fullPath: '/basvuru'
+      preLoaderRoute: typeof SiteBasvuruRouteImport
+      parentRoute: typeof SiteRoute
     }
   }
 }
 
+interface SiteRouteChildren {
+  SiteBasvuruRoute: typeof SiteBasvuruRoute
+  SiteEgitmenlerRoute: typeof SiteEgitmenlerRoute
+  SiteIletisimRoute: typeof SiteIletisimRoute
+  SiteKampRoute: typeof SiteKampRoute
+  SiteIndexRoute: typeof SiteIndexRoute
+}
+
+const SiteRouteChildren: SiteRouteChildren = {
+  SiteBasvuruRoute: SiteBasvuruRoute,
+  SiteEgitmenlerRoute: SiteEgitmenlerRoute,
+  SiteIletisimRoute: SiteIletisimRoute,
+  SiteKampRoute: SiteKampRoute,
+  SiteIndexRoute: SiteIndexRoute,
+}
+
+const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  SiteRoute: SiteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
