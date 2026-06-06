@@ -34,7 +34,7 @@ function HomePage() {
       {/* Hero */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <img src={heroImg} alt="Kızılcahamam çam ormanı" width={1920} height={1280} className="h-full w-full object-cover" />
+          <img src={heroImg.url} alt="Kızılcahamam çam ormanı" width={1920} height={1280} className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
         </div>
         <div className="container-prose pt-24 pb-28 md:pt-36 md:pb-40">
@@ -101,7 +101,7 @@ function HomePage() {
       <section className="bg-surface py-20 md:py-28">
         <div className="container-prose grid md:grid-cols-2 gap-12 items-center">
           <div className="relative">
-            <img src={labImg} alt="Öğrenciler laboratuvarda mikroskopla çalışıyor" width={1280} height={960} loading="lazy" className="rounded-xl border border-border w-full h-auto" />
+            <img src={labImg.url} alt="Öğrenciler laboratuvarda mikroskopla çalışıyor" width={1280} height={960} loading="lazy" className="rounded-xl border border-border w-full h-auto" />
             <div className="absolute -bottom-6 -right-4 hidden md:block bg-background border border-border rounded-lg px-5 py-4 shadow-sm">
               <div className="font-display text-2xl text-primary">7 Prof. Dr.</div>
               <div className="text-xs text-muted-foreground">akademik kadromuzdan</div>
