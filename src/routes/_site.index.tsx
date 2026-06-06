@@ -162,6 +162,34 @@ function HomePage() {
         </div>
       </section>
 
+      {/* Gallery teaser */}
+      <section className="bg-surface py-20 md:py-28">
+        <div className="container-prose">
+          <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
+            <div>
+              <span className="eyebrow">Galeri</span>
+              <h2 className="mt-2 font-display text-3xl md:text-4xl">Kamptan kareler</h2>
+            </div>
+            <Link to="/galeri" className="text-sm text-primary hover:underline inline-flex items-center gap-1">
+              Tüm galeriye git <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            {[
+              { src: galleryA.url, alt: "Mikroskop başında iki öğrenci" },
+              { src: galleryB.url, alt: "Laboratuvarda örnek inceleme" },
+              { src: galleryC.url, alt: "Numune kavanozları" },
+              { src: galleryD.url, alt: "Sertifika töreni" },
+            ].map((g) => (
+              <Link key={g.src} to="/galeri" className="group relative aspect-[4/5] overflow-hidden rounded-lg border border-border bg-muted">
+                <img src={g.src} alt={g.alt} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
       {/* CTA */}
       <section className="container-prose pb-4">
         <div className="rounded-2xl bg-primary text-primary-foreground p-10 md:p-14 grid md:grid-cols-[1fr_auto] gap-6 items-center">
