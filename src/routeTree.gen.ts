@@ -13,6 +13,7 @@ import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
 import { Route as SiteKampRouteImport } from './routes/_site.kamp'
 import { Route as SiteIletisimRouteImport } from './routes/_site.iletisim'
+import { Route as SiteGaleriRouteImport } from './routes/_site.galeri'
 import { Route as SiteEgitmenlerRouteImport } from './routes/_site.egitmenler'
 import { Route as SiteBasvuruRouteImport } from './routes/_site.basvuru'
 
@@ -35,6 +36,11 @@ const SiteIletisimRoute = SiteIletisimRouteImport.update({
   path: '/iletisim',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteGaleriRoute = SiteGaleriRouteImport.update({
+  id: '/galeri',
+  path: '/galeri',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteEgitmenlerRoute = SiteEgitmenlerRouteImport.update({
   id: '/egitmenler',
   path: '/egitmenler',
@@ -50,12 +56,14 @@ export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/basvuru': typeof SiteBasvuruRoute
   '/egitmenler': typeof SiteEgitmenlerRoute
+  '/galeri': typeof SiteGaleriRoute
   '/iletisim': typeof SiteIletisimRoute
   '/kamp': typeof SiteKampRoute
 }
 export interface FileRoutesByTo {
   '/basvuru': typeof SiteBasvuruRoute
   '/egitmenler': typeof SiteEgitmenlerRoute
+  '/galeri': typeof SiteGaleriRoute
   '/iletisim': typeof SiteIletisimRoute
   '/kamp': typeof SiteKampRoute
   '/': typeof SiteIndexRoute
@@ -65,20 +73,28 @@ export interface FileRoutesById {
   '/_site': typeof SiteRouteWithChildren
   '/_site/basvuru': typeof SiteBasvuruRoute
   '/_site/egitmenler': typeof SiteEgitmenlerRoute
+  '/_site/galeri': typeof SiteGaleriRoute
   '/_site/iletisim': typeof SiteIletisimRoute
   '/_site/kamp': typeof SiteKampRoute
   '/_site/': typeof SiteIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/basvuru' | '/egitmenler' | '/iletisim' | '/kamp'
+  fullPaths:
+    | '/'
+    | '/basvuru'
+    | '/egitmenler'
+    | '/galeri'
+    | '/iletisim'
+    | '/kamp'
   fileRoutesByTo: FileRoutesByTo
-  to: '/basvuru' | '/egitmenler' | '/iletisim' | '/kamp' | '/'
+  to: '/basvuru' | '/egitmenler' | '/galeri' | '/iletisim' | '/kamp' | '/'
   id:
     | '__root__'
     | '/_site'
     | '/_site/basvuru'
     | '/_site/egitmenler'
+    | '/_site/galeri'
     | '/_site/iletisim'
     | '/_site/kamp'
     | '/_site/'
@@ -118,6 +134,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteIletisimRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/galeri': {
+      id: '/_site/galeri'
+      path: '/galeri'
+      fullPath: '/galeri'
+      preLoaderRoute: typeof SiteGaleriRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/egitmenler': {
       id: '/_site/egitmenler'
       path: '/egitmenler'
@@ -138,6 +161,7 @@ declare module '@tanstack/react-router' {
 interface SiteRouteChildren {
   SiteBasvuruRoute: typeof SiteBasvuruRoute
   SiteEgitmenlerRoute: typeof SiteEgitmenlerRoute
+  SiteGaleriRoute: typeof SiteGaleriRoute
   SiteIletisimRoute: typeof SiteIletisimRoute
   SiteKampRoute: typeof SiteKampRoute
   SiteIndexRoute: typeof SiteIndexRoute
@@ -146,6 +170,7 @@ interface SiteRouteChildren {
 const SiteRouteChildren: SiteRouteChildren = {
   SiteBasvuruRoute: SiteBasvuruRoute,
   SiteEgitmenlerRoute: SiteEgitmenlerRoute,
+  SiteGaleriRoute: SiteGaleriRoute,
   SiteIletisimRoute: SiteIletisimRoute,
   SiteKampRoute: SiteKampRoute,
   SiteIndexRoute: SiteIndexRoute,
@@ -159,13 +184,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

@@ -6,6 +6,7 @@ const nav = [
   { to: "/", label: "Ana Sayfa" },
   { to: "/kamp", label: "Kamp" },
   { to: "/egitmenler", label: "Eğitim Kadrosu" },
+  { to: "/galeri", label: "Galeri" },
   { to: "/basvuru", label: "Başvuru" },
   { to: "/iletisim", label: "İletişim" },
 ];

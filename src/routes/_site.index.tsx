@@ -1,7 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroImg from "@/assets/hero-forest.jpg";
-import labImg from "@/assets/lab.jpg";
+import heroImg from "@/assets/gallery/kamp-4.jpeg.asset.json";
+import labImg from "@/assets/gallery/kamp-2.jpeg.asset.json";
 import hotelImg from "@/assets/hotel.jpg";
+import galleryA from "@/assets/gallery/kamp-3.jpeg.asset.json";
+import galleryB from "@/assets/gallery/kamp-6.jpeg.asset.json";
+import galleryC from "@/assets/gallery/kamp-7.jpeg.asset.json";
+import galleryD from "@/assets/gallery/kamp-1.jpeg.asset.json";
 import { Microscope, Atom, FlaskConical, Sigma, GraduationCap, MapPin, Clock, Users, Award, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/_site/")({
@@ -30,7 +34,7 @@ function HomePage() {
       {/* Hero */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <img src={heroImg} alt="Kızılcahamam çam ormanı" width={1920} height={1280} className="h-full w-full object-cover" />
+          <img src={heroImg.url} alt="Kızılcahamam çam ormanı" width={1920} height={1280} className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
         </div>
         <div className="container-prose pt-24 pb-28 md:pt-36 md:pb-40">
@@ -97,7 +101,7 @@ function HomePage() {
       <section className="bg-surface py-20 md:py-28">
         <div className="container-prose grid md:grid-cols-2 gap-12 items-center">
           <div className="relative">
-            <img src={labImg} alt="Öğrenciler laboratuvarda mikroskopla çalışıyor" width={1280} height={960} loading="lazy" className="rounded-xl border border-border w-full h-auto" />
+            <img src={labImg.url} alt="Öğrenciler laboratuvarda mikroskopla çalışıyor" width={1280} height={960} loading="lazy" className="rounded-xl border border-border w-full h-auto" />
             <div className="absolute -bottom-6 -right-4 hidden md:block bg-background border border-border rounded-lg px-5 py-4 shadow-sm">
               <div className="font-display text-2xl text-primary">7 Prof. Dr.</div>
               <div className="text-xs text-muted-foreground">akademik kadromuzdan</div>
@@ -157,6 +161,34 @@ function HomePage() {
           <img src={hotelImg} alt="Eliz Hotel Kızılcahamam" width={1280} height={960} loading="lazy" className="order-1 md:order-2 rounded-xl border border-border w-full h-auto" />
         </div>
       </section>
+
+      {/* Gallery teaser */}
+      <section className="bg-surface py-20 md:py-28">
+        <div className="container-prose">
+          <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
+            <div>
+              <span className="eyebrow">Galeri</span>
+              <h2 className="mt-2 font-display text-3xl md:text-4xl">Kamptan kareler</h2>
+            </div>
+            <Link to="/galeri" className="text-sm text-primary hover:underline inline-flex items-center gap-1">
+              Tüm galeriye git <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            {[
+              { src: galleryA.url, alt: "Mikroskop başında iki öğrenci" },
+              { src: galleryB.url, alt: "Laboratuvarda örnek inceleme" },
+              { src: galleryC.url, alt: "Numune kavanozları" },
+              { src: galleryD.url, alt: "Sertifika töreni" },
+            ].map((g) => (
+              <Link key={g.src} to="/galeri" className="group relative aspect-[4/5] overflow-hidden rounded-lg border border-border bg-muted">
+                <img src={g.src} alt={g.alt} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
       {/* CTA */}
       <section className="container-prose pb-4">
