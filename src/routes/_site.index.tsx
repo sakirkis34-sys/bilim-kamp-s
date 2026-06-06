@@ -1,7 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroImg from "@/assets/hero-forest.jpg";
-import labImg from "@/assets/lab.jpg";
+import heroImg from "@/assets/gallery/kamp-4.jpeg.asset.json";
+import labImg from "@/assets/gallery/kamp-2.jpeg.asset.json";
 import hotelImg from "@/assets/hotel.jpg";
+import galleryA from "@/assets/gallery/kamp-3.jpeg.asset.json";
+import galleryB from "@/assets/gallery/kamp-6.jpeg.asset.json";
+import galleryC from "@/assets/gallery/kamp-7.jpeg.asset.json";
+import galleryD from "@/assets/gallery/kamp-1.jpeg.asset.json";
 import { Microscope, Atom, FlaskConical, Sigma, GraduationCap, MapPin, Clock, Users, Award, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/_site/")({
