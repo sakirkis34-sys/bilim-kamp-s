@@ -82,6 +82,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "Doğa Okulu" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Doğa Okulu — Lise Öğrencileri için Bilim Kampları" },
+      { name: "twitter:title", content: "Doğa Okulu — Lise Öğrencileri için Bilim Kampları" },
+      { property: "og:description", content: "Öğr. Gör. Yusuf Durmuş yürütücülüğünde 9 günlük yatılı akademik bilim kampı. Biyoloji, Fizik, Kimya, Matematik." },
+      { name: "twitter:description", content: "Öğr. Gör. Yusuf Durmuş yürütücülüğünde 9 günlük yatılı akademik bilim kampı. Biyoloji, Fizik, Kimya, Matematik." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/acd8b76c-cfb3-42eb-a0e3-cd56a84e415f/id-preview-d45c4a49--f79b9026-2f03-4ae6-823b-fc5e23b063d2.lovable.app-1780209330923.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/acd8b76c-cfb3-42eb-a0e3-cd56a84e415f/id-preview-d45c4a49--f79b9026-2f03-4ae6-823b-fc5e23b063d2.lovable.app-1780209330923.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
