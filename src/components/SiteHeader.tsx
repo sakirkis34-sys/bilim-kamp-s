@@ -17,10 +17,10 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 backdrop-blur bg-background/85 border-b border-border">
       <div className="container-prose flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2.5">
-          <span className="grid place-items-center h-8 w-8 rounded-md bg-primary text-primary-foreground font-display text-base">D</span>
+          <span className="grid place-items-center h-8 w-8 rounded-md bg-primary text-primary-foreground font-display text-base">Y</span>
           <span className="font-display text-lg leading-none">
-            Doğa Okulu
-            <span className="block text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-0.5">Bilim Kampları</span>
+            Yusuf Durmuş Akademi
+            <span className="block text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-0.5">& Bilim Kampları</span>
           </span>
         </Link>
         <nav className="hidden md:flex items-center gap-7">
