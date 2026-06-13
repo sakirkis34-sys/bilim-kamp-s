@@ -4,9 +4,9 @@ import { Phone, MapPin, MessageCircle, User } from "lucide-react";
 export const Route = createFileRoute("/_site/iletisim")({
   head: () => ({
     meta: [
-      { title: "İletişim — Doğa Okulu" },
-      { name: "description", content: "Doğa Okulu iletişim bilgileri. Prof. Dr. Yusuf Durmuş — 0532 511 25 02." },
-      { property: "og:title", content: "İletişim — Doğa Okulu" },
+      { title: "İletişim — Yusuf Durmuş Akademi & Bilim Kampları" },
+      { name: "description", content: "Yusuf Durmuş Akademi & Bilim Kampları iletişim bilgileri. Prof. Dr. Yusuf Durmuş — 0532 511 25 02." },
+      { property: "og:title", content: "İletişim — Yusuf Durmuş Akademi & Bilim Kampları" },
       { property: "og:description", content: "Bize ulaşın: 0532 511 25 02 · Eliz Hotel, Kızılcahamam, Ankara." },
     ],
     links: [{ rel: "canonical", href: "/iletisim" }],

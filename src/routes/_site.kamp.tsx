@@ -4,9 +4,9 @@ import { Calendar, Sun, Moon, FlaskConical, Mountain, BookOpen } from "lucide-re
 export const Route = createFileRoute("/_site/kamp")({
   head: () => ({
     meta: [
-      { title: "Kamp Programı — Doğa Okulu" },
+      { title: "Kamp Programı — Yusuf Durmuş Akademi & Bilim Kampları" },
       { name: "description", content: "9 günlük yatılı bilim kampı: ileri teori, laboratuvar, arazi çalışması, soru çözümü ve akşam söyleşileri." },
-      { property: "og:title", content: "Kamp Programı — Doğa Okulu" },
+      { property: "og:title", content: "Kamp Programı — Yusuf Durmuş Akademi & Bilim Kampları" },
       { property: "og:description", content: "9 gün · ~80 saat akademik ders · laboratuvar · arazi çalışması · konferanslar." },
     ],
     links: [{ rel: "canonical", href: "/kamp" }],

@@ -3,9 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/_site/egitmenler")({
   head: () => ({
     meta: [
-      { title: "Eğitim Kadrosu — Doğa Okulu" },
+      { title: "Eğitim Kadrosu — Yusuf Durmuş Akademi & Bilim Kampları" },
       { name: "description", content: "28 kişilik akademik kadro: 7 Prof. Dr., 4 Doç. Dr., 2 Dr. Öğr. Üyesi, olimpiyat eğitmenleri ve araştırmacılar." },
-      { property: "og:title", content: "Eğitim Kadrosu — Doğa Okulu" },
+      { property: "og:title", content: "Eğitim Kadrosu — Yusuf Durmuş Akademi & Bilim Kampları" },
       { property: "og:description", content: "Üniversite kürsüsünden lise sıralarına: alanında uzman 28 kişilik akademik kadro." },
     ],
     links: [{ rel: "canonical", href: "/egitmenler" }],
@@ -46,7 +46,7 @@ function EgitmenlerPage() {
         <div className="eyebrow text-gold">Yürütücü</div>
         <h2 className="mt-3 font-display text-3xl">Öğr. Gör. Yusuf Durmuş</h2>
         <p className="mt-4 max-w-2xl text-primary-foreground/85">
-          Doğa Okulu, akademik birikim ve saha tecrübesini bir araya getirerek lise
+          Yusuf Durmuş Akademi & Bilim Kampları, akademik birikim ve saha tecrübesini bir araya getirerek lise
           öğrencilerine üniversite düzeyinde bilim eğitimi sunma vizyonuyla kurulmuştur.
           Tüm süreç, yürütücümüz tarafından bizzat koordine edilir.
         </p>

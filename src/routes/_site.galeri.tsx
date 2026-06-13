@@ -12,8 +12,8 @@ import img7 from "@/assets/gallery/kamp-7.jpeg.asset.json";
 export const Route = createFileRoute("/_site/galeri")({
   head: () => ({
     meta: [
-      { title: "Galeri — Doğa Okulu Bilim Kampları" },
-      { name: "description", content: "Doğa Okulu bilim kamplarından kareler: laboratuvar çalışmaları, arazi gezileri, sertifika töreni." },
+      { title: "Galeri — Yusuf Durmuş Akademi & Bilim Kampları" },
+      { name: "description", content: "Yusuf Durmuş Akademi & Bilim Kampları kamplarından kareler: laboratuvar çalışmaları, arazi gezileri, sertifika töreni." },
     ],
   }),
   component: GalleryPage,

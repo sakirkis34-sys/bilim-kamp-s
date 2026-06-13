@@ -6,9 +6,9 @@ import { CheckCircle2, Phone } from "lucide-react";
 export const Route = createFileRoute("/_site/basvuru")({
   head: () => ({
     meta: [
-      { title: "Başvuru — Doğa Okulu Bilim Kampı" },
-      { name: "description", content: "Doğa Okulu bilim kampına çevrimiçi başvuru formu. Kontenjan sınırlıdır." },
-      { property: "og:title", content: "Başvuru — Doğa Okulu" },
+      { title: "Başvuru — Yusuf Durmuş Akademi & Bilim Kampları" },
+      { name: "description", content: "Yusuf Durmuş Akademi & Bilim Kampları bilim kampına çevrimiçi başvuru formu. Kontenjan sınırlıdır." },
+      { property: "og:title", content: "Başvuru — Yusuf Durmuş Akademi & Bilim Kampları" },
       { property: "og:description", content: "Bilim kampına başvurmak için formu doldurun, ekibimiz sizinle iletişime geçsin." },
     ],
     links: [{ rel: "canonical", href: "/basvuru" }],
@@ -61,7 +61,7 @@ function BasvuruPage() {
     // Forward via WhatsApp to the program coordinator
     const d = parsed.data;
     const msg = encodeURIComponent(
-      `Doğa Okulu Başvurusu\n\nÖğrenci: ${d.adSoyad}\nSınıf: ${d.sinif}\nBranş: ${d.brans}\nŞehir: ${d.sehir}\nVeli: ${d.veliAdSoyad}\nTelefon: ${d.telefon}\nE-posta: ${d.email}${d.not ? `\nNot: ${d.not}` : ""}`,
+      `Yusuf Durmuş Akademi & Bilim Kampları Başvurusu\n\nÖğrenci: ${d.adSoyad}\nSınıf: ${d.sinif}\nBranş: ${d.brans}\nŞehir: ${d.sehir}\nVeli: ${d.veliAdSoyad}\nTelefon: ${d.telefon}\nE-posta: ${d.email}${d.not ? `\nNot: ${d.not}` : ""}`,
     );
     window.open(`https://wa.me/905325112502?text=${msg}`, "_blank", "noopener,noreferrer");
     setSubmitted(true);
