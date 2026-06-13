@@ -32,7 +32,7 @@ export function SiteFooter() {
       </div>
       <div className="hairline">
         <div className="container-prose py-5 text-xs text-muted-foreground flex flex-wrap justify-between gap-2">
-          <span>© {new Date().getFullYear()} Doğa Okulu. Tüm hakları saklıdır.</span>
+          <span>© {new Date().getFullYear()} Yusuf Durmuş Akademi & Bilim Kampları. Tüm hakları saklıdır.</span>
           <span>Akademik bilim kampları · Kızılcahamam, Ankara</span>
         </div>
       </div>
