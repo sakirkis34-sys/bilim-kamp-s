@@ -11,9 +11,9 @@ import { Microscope, Atom, FlaskConical, Sigma, GraduationCap, MapPin, Clock, Us
 export const Route = createFileRoute("/_site/")({
   head: () => ({
     meta: [
-      { title: "Doğa Okulu — Lise Öğrencileri için Bilim Kampları" },
+      { title: "Yusuf Durmuş Akademi & Bilim Kampları" },
       { name: "description", content: "Öğretim Görevlisi Yusuf Durmuş yürütücülüğünde 9 günlük akademik bilim kampı. Biyoloji, Fizik, Kimya, Matematik. Kızılcahamam, Ankara." },
-      { property: "og:title", content: "Doğa Okulu — Bilim Kampları" },
+      { property: "og:title", content: "Yusuf Durmuş Akademi & Bilim Kampları" },
       { property: "og:description", content: "TYT-AYT ve TÜBİTAK Bilim Olimpiyatları hazırlığı için 9 günlük yatılı akademik kamp." },
     ],
     links: [{ rel: "canonical", href: "/" }],
@@ -43,7 +43,7 @@ function HomePage() {
             Bilimle, doğada, akademisyenlerle <span className="text-primary">geleceğine hazırlan.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-base md:text-lg text-muted-foreground">
-            Doğa Okulu, Öğretim Görevlisi Yusuf Durmuş yürütücülüğünde 7–12. sınıf öğrencilerine
+            Yusuf Durmuş Akademi & Bilim Kampları, Öğretim Görevlisi Yusuf Durmuş yürütücülüğünde 7–12. sınıf öğrencilerine
             yönelik Biyoloji, Fizik, Kimya ve Matematik alanlarında yatılı bilim kampları düzenler.
             TYT-AYT ve TÜBİTAK Bilim Olimpiyatları için ileri düzey hazırlık.
           </p>
@@ -108,7 +108,7 @@ function HomePage() {
             </div>
           </div>
           <div>
-            <span className="eyebrow">Neden Doğa Okulu</span>
+            <span className="eyebrow">Neden Yusuf Durmuş Akademi</span>
             <h2 className="mt-2 font-display text-3xl md:text-4xl">Üniversite kürsüsünden lise sıralarına</h2>
             <p className="mt-5 text-muted-foreground">
               Akademik düzeyde verilen dersler, gerçek laboratuvar deneyimleri ve doğada

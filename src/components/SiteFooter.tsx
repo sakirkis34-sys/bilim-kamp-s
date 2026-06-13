@@ -6,7 +6,7 @@ export function SiteFooter() {
     <footer className="mt-24 border-t border-border bg-surface">
       <div className="container-prose py-14 grid gap-10 md:grid-cols-4">
         <div className="md:col-span-2">
-          <div className="font-display text-2xl">Doğa Okulu</div>
+          <div className="font-display text-2xl">Yusuf Durmuş Akademi & Bilim Kampları</div>
           <p className="mt-3 text-sm text-muted-foreground max-w-sm">
             Öğretim Görevlisi Yusuf Durmuş yürütücülüğünde lise öğrencilerine yönelik
             akademik bilim kampları.
@@ -32,7 +32,7 @@ export function SiteFooter() {
       </div>
       <div className="hairline">
         <div className="container-prose py-5 text-xs text-muted-foreground flex flex-wrap justify-between gap-2">
-          <span>© {new Date().getFullYear()} Doğa Okulu. Tüm hakları saklıdır.</span>
+          <span>© {new Date().getFullYear()} Yusuf Durmuş Akademi & Bilim Kampları. Tüm hakları saklıdır.</span>
           <span>Akademik bilim kampları · Kızılcahamam, Ankara</span>
         </div>
       </div>
