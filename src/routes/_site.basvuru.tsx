@@ -18,7 +18,12 @@ export const Route = createFileRoute("/_site/basvuru")({
 
 const schema = z.object({
   adSoyad: z.string().trim().min(3, "Ad soyad en az 3 karakter").max(100),
+  tcNo: z.string().trim().length(11, "T.C. Kimlik No 11 haneli olmalıdır"),
+  dogumTarihi: z.string().trim().min(1, "Doğum tarihi gerekli"),
+  dogumYeri: z.string().trim().min(2, "Doğum yeri gerekli").max(60),
+  cinsiyet: z.enum(["Kız", "Erkek"], { message: "Cinsiyet seçiniz" }),
   veliAdSoyad: z.string().trim().min(3, "Veli ad soyad gerekli").max(100),
+  veliTelefon: z.string().trim().min(10, "Geçerli telefon giriniz").max(20),
   telefon: z.string().trim().min(10, "Geçerli telefon giriniz").max(20),
   email: z.string().trim().email("Geçerli e-posta giriniz").max(120),
   sehir: z.string().trim().min(2).max(60),
@@ -26,6 +31,7 @@ const schema = z.object({
   brans: z.enum(["Biyoloji", "Fizik", "Kimya", "Matematik", "EKOLOJİ TEMELLİ DOĞA EĞİTİMİ"], { message: "Branş seçiniz" }),
   not: z.string().max(600).optional(),
   kvkk: z.literal(true, { message: "Onay vermelisiniz" }),
+  kurallar: z.literal(true, { message: "Onay vermelisiniz" }),
 });
 
 type FormState = Partial<Record<keyof z.infer<typeof schema>, string>>;
@@ -39,7 +45,12 @@ function BasvuruPage() {
     const fd = new FormData(e.currentTarget);
     const raw = {
       adSoyad: fd.get("adSoyad"),
+      tcNo: fd.get("tcNo"),
+      dogumTarihi: fd.get("dogumTarihi"),
+      dogumYeri: fd.get("dogumYeri"),
+      cinsiyet: fd.get("cinsiyet"),
       veliAdSoyad: fd.get("veliAdSoyad"),
+      veliTelefon: fd.get("veliTelefon"),
       telefon: fd.get("telefon"),
       email: fd.get("email"),
       sehir: fd.get("sehir"),
@@ -47,6 +58,7 @@ function BasvuruPage() {
       brans: fd.get("brans"),
       not: fd.get("not") || undefined,
       kvkk: fd.get("kvkk") === "on" ? true : false,
+      kurallar: fd.get("kurallar") === "on" ? true : false,
     };
     const parsed = schema.safeParse(raw);
     if (!parsed.success) {
@@ -61,7 +73,7 @@ function BasvuruPage() {
     // Forward via WhatsApp to the program coordinator
     const d = parsed.data;
     const msg = encodeURIComponent(
-      `Yusuf Durmuş Akademi & Bilim Kampları Başvurusu\n\nÖğrenci: ${d.adSoyad}\nSınıf: ${d.sinif}\nBranş: ${d.brans}\nŞehir: ${d.sehir}\nVeli: ${d.veliAdSoyad}\nTelefon: ${d.telefon}\nE-posta: ${d.email}${d.not ? `\nNot: ${d.not}` : ""}`,
+      `Yusuf Durmuş Akademi & Bilim Kampları Başvurusu\n\nÖğrenci: ${d.adSoyad}\nT.C. No: ${d.tcNo}\nDoğum Tarihi: ${d.dogumTarihi}\nDoğum Yeri: ${d.dogumYeri}\nCinsiyet: ${d.cinsiyet}\nSınıf: ${d.sinif}\nBranş: ${d.brans}\nŞehir: ${d.sehir}\nVeli: ${d.veliAdSoyad}\nVeli Telefon: ${d.veliTelefon}\nTelefon: ${d.telefon}\nE-posta: ${d.email}${d.not ? `\nNot: ${d.not}` : ""}`,
     );
     window.open(`https://wa.me/905325112502?text=${msg}`, "_blank", "noopener,noreferrer");
     setSubmitted(true);
@@ -94,14 +106,19 @@ function BasvuruPage() {
 
       <form onSubmit={onSubmit} noValidate className="mt-10 grid sm:grid-cols-2 gap-5">
         <Field label="Öğrenci Adı Soyadı" name="adSoyad" error={errors.adSoyad} />
+        <Field label="T.C. Kimlik No" name="tcNo" type="text" maxLength={11} placeholder="XXXXXXXXXXX" error={errors.tcNo} />
+        <Field label="Doğum Tarihi" name="dogumTarihi" type="date" error={errors.dogumTarihi} />
+        <Field label="Doğum Yeri" name="dogumYeri" error={errors.dogumYeri} />
+        <Select label="Cinsiyeti" name="cinsiyet" error={errors.cinsiyet} options={["Kız", "Erkek"]} />
         <Field label="Veli Adı Soyadı" name="veliAdSoyad" error={errors.veliAdSoyad} />
+        <Field label="Veli Cep Telefonu" name="veliTelefon" type="tel" placeholder="05XX XXX XX XX" error={errors.veliTelefon} />
         <Field label="Telefon" name="telefon" type="tel" placeholder="05XX XXX XX XX" error={errors.telefon} />
         <Field label="E-posta" name="email" type="email" error={errors.email} />
         <Field label="Şehir" name="sehir" error={errors.sehir} />
         <Select label="Sınıf" name="sinif" error={errors.sinif} options={["7", "8", "9", "10", "11", "12", "Mezun"]} />
         <Select label="Kampa katılmak istediğiniz alanı işaretleyiniz" name="brans" error={errors.brans} options={["Biyoloji", "Fizik", "Kimya", "Matematik", "EKOLOJİ TEMELLİ DOĞA EĞİTİMİ"]} full />
         <div className="sm:col-span-2">
-          <label className="text-sm font-medium">Not <span className="text-muted-foreground font-normal">(opsiyonel)</span></label>
+          <label className="text-sm font-medium">Yapılacak bu eğitime neden katılmak istediğinizi belirtiniz <span className="text-muted-foreground font-normal">(opsiyonel)</span></label>
           <textarea name="not" rows={4} maxLength={600} className="mt-1.5 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
         </div>
         <div className="sm:col-span-2 flex items-start gap-3">
@@ -111,6 +128,13 @@ function BasvuruPage() {
           </label>
         </div>
         {errors.kvkk && <p className="sm:col-span-2 text-sm text-destructive -mt-3">{errors.kvkk}</p>}
+        <div className="sm:col-span-2 flex items-start gap-3">
+          <input type="checkbox" id="kurallar" name="kurallar" className="mt-1 h-4 w-4 accent-[var(--color-primary)]" />
+          <label htmlFor="kurallar" className="text-sm text-muted-foreground">
+            Bilim kampının kurallarına uymayı kabul ediyorum.
+          </label>
+        </div>
+        {errors.kurallar && <p className="sm:col-span-2 text-sm text-destructive -mt-3">{errors.kurallar}</p>}
         <div className="sm:col-span-2 flex justify-end">
           <button type="submit" className="inline-flex h-11 items-center rounded-md bg-primary text-primary-foreground px-7 text-sm font-medium hover:bg-primary/90 transition">
             Başvuruyu Gönder
@@ -121,11 +145,11 @@ function BasvuruPage() {
   );
 }
 
-function Field({ label, name, type = "text", placeholder, error }: { label: string; name: string; type?: string; placeholder?: string; error?: string }) {
+function Field({ label, name, type = "text", placeholder, maxLength, error }: { label: string; name: string; type?: string; placeholder?: string; maxLength?: number; error?: string }) {
   return (
     <div>
       <label className="text-sm font-medium" htmlFor={name}>{label}</label>
-      <input id={name} name={name} type={type} placeholder={placeholder} className="mt-1.5 w-full rounded-md border border-input bg-background px-3 h-10 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
+      <input id={name} name={name} type={type} placeholder={placeholder} maxLength={maxLength} className="mt-1.5 w-full rounded-md border border-input bg-background px-3 h-10 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
       {error && <p className="mt-1 text-xs text-destructive">{error}</p>}
     </div>
   );
