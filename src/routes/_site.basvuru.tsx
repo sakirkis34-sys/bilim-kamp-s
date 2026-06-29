@@ -99,7 +99,7 @@ function BasvuruPage() {
         <Field label="E-posta" name="email" type="email" error={errors.email} />
         <Field label="Şehir" name="sehir" error={errors.sehir} />
         <Select label="Sınıf" name="sinif" error={errors.sinif} options={["7", "8", "9", "10", "11", "12", "Mezun"]} />
-        <Select label="Kampa katılmak istediğiniz alanı işaretleyiniz" name="brans" error={errors.brans} options={["Biyoloji", "Fizik", "Kimya", "Matematik"]} full />
+        <Select label="Kampa katılmak istediğiniz alanı işaretleyiniz" name="brans" error={errors.brans} options={["Biyoloji", "Fizik", "Kimya", "Matematik", "EKOLOJİ TEMELLİ DOĞA EĞİTİMİ"]} full />
         <div className="sm:col-span-2">
           <label className="text-sm font-medium">Not <span className="text-muted-foreground font-normal">(opsiyonel)</span></label>
           <textarea name="not" rows={4} maxLength={600} className="mt-1.5 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
