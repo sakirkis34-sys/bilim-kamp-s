@@ -110,9 +110,9 @@ function BasvuruPage() {
         <Field label="Doğum Tarihi" name="dogumTarihi" type="date" error={errors.dogumTarihi} />
         <Field label="Doğum Yeri" name="dogumYeri" error={errors.dogumYeri} />
         <Select label="Cinsiyeti" name="cinsiyet" error={errors.cinsiyet} options={["Kız", "Erkek"]} />
+        <Field label="Cep Telefonu" name="telefon" type="tel" placeholder="05XX XXX XX XX" error={errors.telefon} />
         <Field label="Veli Adı Soyadı" name="veliAdSoyad" error={errors.veliAdSoyad} />
         <Field label="Veli Cep Telefonu" name="veliTelefon" type="tel" placeholder="05XX XXX XX XX" error={errors.veliTelefon} />
-        <Field label="Cep Telefonu" name="telefon" type="tel" placeholder="05XX XXX XX XX" error={errors.telefon} />
         <Field label="E-posta" name="email" type="email" error={errors.email} />
         <Field label="Şehir" name="sehir" error={errors.sehir} />
         <Field label="Okuduğu Okul / Sınıfı" name="sinif" error={errors.sinif} />
