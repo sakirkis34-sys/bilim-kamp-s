@@ -26,8 +26,10 @@ const schema = z.object({
   veliTelefon: z.string().trim().min(10, "Geçerli telefon giriniz").max(20),
   telefon: z.string().trim().min(10, "Geçerli telefon giriniz").max(20),
   email: z.string().trim().email("Geçerli e-posta giriniz").max(120),
-  sehir: z.string().trim().min(2).max(60),
+  evAdresi: z.string().trim().min(5, "Ev adresi gerekli").max(200),
   sinif: z.string().trim().min(1, "Okuduğu okul / sınıf gerekli"),
+  okulGirisPuani: z.string().trim().min(1, "Okul giriş puanı gerekli"),
+  notOrtalamasi: z.string().trim().min(1, "Not ortalaması gerekli"),
   brans: z.enum(["Biyoloji", "Fizik", "Kimya", "Matematik", "EKOLOJİ TEMELLİ DOĞA EĞİTİMİ"], { message: "Branş seçiniz" }),
   not: z.string().max(600).optional(),
   kvkk: z.literal(true, { message: "Onay vermelisiniz" }),
@@ -53,8 +55,10 @@ function BasvuruPage() {
       veliTelefon: fd.get("veliTelefon"),
       telefon: fd.get("telefon"),
       email: fd.get("email"),
-      sehir: fd.get("sehir"),
+      evAdresi: fd.get("evAdresi"),
       sinif: fd.get("sinif"),
+      okulGirisPuani: fd.get("okulGirisPuani"),
+      notOrtalamasi: fd.get("notOrtalamasi"),
       brans: fd.get("brans"),
       not: fd.get("not") || undefined,
       kvkk: fd.get("kvkk") === "on" ? true : false,
@@ -73,7 +77,7 @@ function BasvuruPage() {
     // Forward via WhatsApp to the program coordinator
     const d = parsed.data;
     const msg = encodeURIComponent(
-      `Yusuf Durmuş Akademi & Bilim Kampları Başvurusu\n\nÖğrenci: ${d.adSoyad}\nT.C. No: ${d.tcNo}\nDoğum Tarihi: ${d.dogumTarihi}\nDoğum Yeri: ${d.dogumYeri}\nCinsiyet: ${d.cinsiyet}\nSınıf: ${d.sinif}\nBranş: ${d.brans}\nŞehir: ${d.sehir}\nVeli: ${d.veliAdSoyad}\nVeli Telefon: ${d.veliTelefon}\nTelefon: ${d.telefon}\nE-posta: ${d.email}${d.not ? `\nNot: ${d.not}` : ""}`,
+      `Yusuf Durmuş Akademi & Bilim Kampları Başvurusu\n\nÖğrenci: ${d.adSoyad}\nT.C. No: ${d.tcNo}\nDoğum Tarihi: ${d.dogumTarihi}\nDoğum Yeri: ${d.dogumYeri}\nCinsiyet: ${d.cinsiyet}\nOkul/Sınıf: ${d.sinif}\nOkul Giriş Puanı: ${d.okulGirisPuani}\nNot Ortalaması: ${d.notOrtalamasi}\nBranş: ${d.brans}\nEv Adresi: ${d.evAdresi}\nVeli: ${d.veliAdSoyad}\nVeli Telefon: ${d.veliTelefon}\nTelefon: ${d.telefon}\nE-posta: ${d.email}${d.not ? `\nNot: ${d.not}` : ""}`,
     );
     window.open(`https://wa.me/905325112502?text=${msg}`, "_blank", "noopener,noreferrer");
     setSubmitted(true);
@@ -114,8 +118,10 @@ function BasvuruPage() {
         <Field label="Veli Adı Soyadı" name="veliAdSoyad" error={errors.veliAdSoyad} />
         <Field label="Veli Cep Telefonu" name="veliTelefon" type="tel" placeholder="05XX XXX XX XX" error={errors.veliTelefon} />
         <Field label="E-posta" name="email" type="email" error={errors.email} />
-        <Field label="Şehir" name="sehir" error={errors.sehir} />
+        <Field label="Ev Adresi" name="evAdresi" error={errors.evAdresi} />
         <Field label="Okuduğu Okul / Sınıfı" name="sinif" error={errors.sinif} />
+        <Field label="Öğrencinin Okul Giriş Puanı" name="okulGirisPuani" error={errors.okulGirisPuani} />
+        <Field label="Not Ortalaması" name="notOrtalamasi" error={errors.notOrtalamasi} />
         <Select label="Kampa katılmak istediğiniz alanı işaretleyiniz" name="brans" error={errors.brans} options={["Biyoloji", "Fizik", "Kimya", "Matematik", "EKOLOJİ TEMELLİ DOĞA EĞİTİMİ"]} full />
         <div className="sm:col-span-2">
           <label className="text-sm font-medium">Yapılacak bu eğitime neden katılmak istediğinizi belirtiniz <span className="text-muted-foreground font-normal">(opsiyonel)</span></label>
