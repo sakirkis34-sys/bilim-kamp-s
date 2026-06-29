@@ -23,7 +23,7 @@ const schema = z.object({
   email: z.string().trim().email("Geçerli e-posta giriniz").max(120),
   sehir: z.string().trim().min(2).max(60),
   sinif: z.string().min(1, "Sınıf seçiniz"),
-  brans: z.enum(["Biyoloji", "Fizik", "Kimya", "Matematik"], { message: "Branş seçiniz" }),
+  brans: z.enum(["Biyoloji", "Fizik", "Kimya", "Matematik", "EKOLOJİ TEMELLİ DOĞA EĞİTİMİ"], { message: "Branş seçiniz" }),
   not: z.string().max(600).optional(),
   kvkk: z.literal(true, { message: "Onay vermelisiniz" }),
 });
