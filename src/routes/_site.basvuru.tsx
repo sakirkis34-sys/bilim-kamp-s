@@ -27,7 +27,7 @@ const schema = z.object({
   telefon: z.string().trim().min(10, "Geçerli telefon giriniz").max(20),
   email: z.string().trim().email("Geçerli e-posta giriniz").max(120),
   sehir: z.string().trim().min(2).max(60),
-  sinif: z.string().min(1, "Sınıf seçiniz"),
+  sinif: z.string().trim().min(1, "Okuduğu okul / sınıf gerekli"),
   brans: z.enum(["Biyoloji", "Fizik", "Kimya", "Matematik", "EKOLOJİ TEMELLİ DOĞA EĞİTİMİ"], { message: "Branş seçiniz" }),
   not: z.string().max(600).optional(),
   kvkk: z.literal(true, { message: "Onay vermelisiniz" }),
@@ -110,12 +110,12 @@ function BasvuruPage() {
         <Field label="Doğum Tarihi" name="dogumTarihi" type="date" error={errors.dogumTarihi} />
         <Field label="Doğum Yeri" name="dogumYeri" error={errors.dogumYeri} />
         <Select label="Cinsiyeti" name="cinsiyet" error={errors.cinsiyet} options={["Kız", "Erkek"]} />
+        <Field label="Cep Telefonu" name="telefon" type="tel" placeholder="05XX XXX XX XX" error={errors.telefon} />
         <Field label="Veli Adı Soyadı" name="veliAdSoyad" error={errors.veliAdSoyad} />
         <Field label="Veli Cep Telefonu" name="veliTelefon" type="tel" placeholder="05XX XXX XX XX" error={errors.veliTelefon} />
-        <Field label="Telefon" name="telefon" type="tel" placeholder="05XX XXX XX XX" error={errors.telefon} />
         <Field label="E-posta" name="email" type="email" error={errors.email} />
         <Field label="Şehir" name="sehir" error={errors.sehir} />
-        <Select label="Sınıf" name="sinif" error={errors.sinif} options={["7", "8", "9", "10", "11", "12", "Mezun"]} />
+        <Field label="Okuduğu Okul / Sınıfı" name="sinif" error={errors.sinif} />
         <Select label="Kampa katılmak istediğiniz alanı işaretleyiniz" name="brans" error={errors.brans} options={["Biyoloji", "Fizik", "Kimya", "Matematik", "EKOLOJİ TEMELLİ DOĞA EĞİTİMİ"]} full />
         <div className="sm:col-span-2">
           <label className="text-sm font-medium">Yapılacak bu eğitime neden katılmak istediğinizi belirtiniz <span className="text-muted-foreground font-normal">(opsiyonel)</span></label>
