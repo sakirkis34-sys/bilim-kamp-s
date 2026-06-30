@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
 import { Route as SiteKampRouteImport } from './routes/_site.kamp'
@@ -17,6 +18,11 @@ import { Route as SiteGaleriRouteImport } from './routes/_site.galeri'
 import { Route as SiteEgitmenlerRouteImport } from './routes/_site.egitmenler'
 import { Route as SiteBasvuruRouteImport } from './routes/_site.basvuru'
 
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
   getParentRoute: () => rootRouteImport,
@@ -54,6 +60,7 @@ const SiteBasvuruRoute = SiteBasvuruRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
+  '/admin': typeof AdminRoute
   '/basvuru': typeof SiteBasvuruRoute
   '/egitmenler': typeof SiteEgitmenlerRoute
   '/galeri': typeof SiteGaleriRoute
@@ -61,6 +68,7 @@ export interface FileRoutesByFullPath {
   '/kamp': typeof SiteKampRoute
 }
 export interface FileRoutesByTo {
+  '/admin': typeof AdminRoute
   '/basvuru': typeof SiteBasvuruRoute
   '/egitmenler': typeof SiteEgitmenlerRoute
   '/galeri': typeof SiteGaleriRoute
@@ -71,6 +79,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
+  '/admin': typeof AdminRoute
   '/_site/basvuru': typeof SiteBasvuruRoute
   '/_site/egitmenler': typeof SiteEgitmenlerRoute
   '/_site/galeri': typeof SiteGaleriRoute
@@ -82,16 +91,25 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/basvuru'
     | '/egitmenler'
     | '/galeri'
     | '/iletisim'
     | '/kamp'
   fileRoutesByTo: FileRoutesByTo
-  to: '/basvuru' | '/egitmenler' | '/galeri' | '/iletisim' | '/kamp' | '/'
+  to:
+    | '/admin'
+    | '/basvuru'
+    | '/egitmenler'
+    | '/galeri'
+    | '/iletisim'
+    | '/kamp'
+    | '/'
   id:
     | '__root__'
     | '/_site'
+    | '/admin'
     | '/_site/basvuru'
     | '/_site/egitmenler'
     | '/_site/galeri'
@@ -102,10 +120,18 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   SiteRoute: typeof SiteRouteWithChildren
+  AdminRoute: typeof AdminRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_site': {
       id: '/_site'
       path: ''
@@ -180,6 +206,7 @@ const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   SiteRoute: SiteRouteWithChildren,
+  AdminRoute: AdminRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
