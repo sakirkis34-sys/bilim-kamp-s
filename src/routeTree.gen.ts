@@ -18,6 +18,7 @@ import { Route as SiteIletisimRouteImport } from './routes/_site.iletisim'
 import { Route as SiteGaleriRouteImport } from './routes/_site.galeri'
 import { Route as SiteEgitmenlerRouteImport } from './routes/_site.egitmenler'
 import { Route as SiteBasvuruRouteImport } from './routes/_site.basvuru'
+import { Route as AdminBasvurularIdRouteImport } from './routes/admin.basvurular.$id'
 
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
@@ -63,6 +64,11 @@ const SiteBasvuruRoute = SiteBasvuruRouteImport.update({
   path: '/basvuru',
   getParentRoute: () => SiteRoute,
 } as any)
+const AdminBasvurularIdRoute = AdminBasvurularIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminBasvurularRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
@@ -72,7 +78,8 @@ export interface FileRoutesByFullPath {
   '/galeri': typeof SiteGaleriRoute
   '/iletisim': typeof SiteIletisimRoute
   '/kamp': typeof SiteKampRoute
-  '/admin/basvurular': typeof AdminBasvurularRoute
+  '/admin/basvurular': typeof AdminBasvurularRouteWithChildren
+  '/admin/basvurular/$id': typeof AdminBasvurularIdRoute
 }
 export interface FileRoutesByTo {
   '/admin': typeof AdminRouteWithChildren
@@ -81,8 +88,9 @@ export interface FileRoutesByTo {
   '/galeri': typeof SiteGaleriRoute
   '/iletisim': typeof SiteIletisimRoute
   '/kamp': typeof SiteKampRoute
-  '/admin/basvurular': typeof AdminBasvurularRoute
+  '/admin/basvurular': typeof AdminBasvurularRouteWithChildren
   '/': typeof SiteIndexRoute
+  '/admin/basvurular/$id': typeof AdminBasvurularIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,8 +101,9 @@ export interface FileRoutesById {
   '/_site/galeri': typeof SiteGaleriRoute
   '/_site/iletisim': typeof SiteIletisimRoute
   '/_site/kamp': typeof SiteKampRoute
-  '/admin/basvurular': typeof AdminBasvurularRoute
+  '/admin/basvurular': typeof AdminBasvurularRouteWithChildren
   '/_site/': typeof SiteIndexRoute
+  '/admin/basvurular/$id': typeof AdminBasvurularIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/iletisim'
     | '/kamp'
     | '/admin/basvurular'
+    | '/admin/basvurular/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/admin'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/kamp'
     | '/admin/basvurular'
     | '/'
+    | '/admin/basvurular/$id'
   id:
     | '__root__'
     | '/_site'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/_site/kamp'
     | '/admin/basvurular'
     | '/_site/'
+    | '/admin/basvurular/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -200,6 +212,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteBasvuruRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/admin/basvurular/$id': {
+      id: '/admin/basvurular/$id'
+      path: '/$id'
+      fullPath: '/admin/basvurular/$id'
+      preLoaderRoute: typeof AdminBasvurularIdRouteImport
+      parentRoute: typeof AdminBasvurularRoute
+    }
   }
 }
 
@@ -223,12 +242,24 @@ const SiteRouteChildren: SiteRouteChildren = {
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
+interface AdminBasvurularRouteChildren {
+  AdminBasvurularIdRoute: typeof AdminBasvurularIdRoute
+}
+
+const AdminBasvurularRouteChildren: AdminBasvurularRouteChildren = {
+  AdminBasvurularIdRoute: AdminBasvurularIdRoute,
+}
+
+const AdminBasvurularRouteWithChildren = AdminBasvurularRoute._addFileChildren(
+  AdminBasvurularRouteChildren,
+)
+
 interface AdminRouteChildren {
-  AdminBasvurularRoute: typeof AdminBasvurularRoute
+  AdminBasvurularRoute: typeof AdminBasvurularRouteWithChildren
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
-  AdminBasvurularRoute: AdminBasvurularRoute,
+  AdminBasvurularRoute: AdminBasvurularRouteWithChildren,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
