@@ -64,7 +64,7 @@ function AdminList() {
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {applications.map((a) => (
+                {applications.map((a: typeof applications[number]) => (
                   <tr key={a.id} className="hover:bg-muted/30">
                     <td className="px-4 py-3 whitespace-nowrap text-muted-foreground">
                       {new Date(a.created_at).toLocaleDateString("tr-TR", { day: "2-digit", month: "2-digit", year: "numeric" })}
