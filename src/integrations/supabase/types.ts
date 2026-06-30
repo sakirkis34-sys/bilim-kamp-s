@@ -14,7 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      applications: {
+        Row: {
+          ad_soyad: string
+          brans: string
+          cinsiyet: string
+          created_at: string
+          dogum_tarihi: string
+          dogum_yeri: string
+          email: string
+          ev_adresi: string
+          id: string
+          not_metni: string | null
+          not_ortalamasi: string
+          okul_giris_puani: string
+          sinif: string
+          status: string
+          tc_no: string
+          telefon: string
+          veli_ad_soyad: string
+          veli_telefon: string
+        }
+        Insert: {
+          ad_soyad: string
+          brans: string
+          cinsiyet: string
+          created_at?: string
+          dogum_tarihi: string
+          dogum_yeri: string
+          email: string
+          ev_adresi: string
+          id?: string
+          not_metni?: string | null
+          not_ortalamasi: string
+          okul_giris_puani: string
+          sinif: string
+          status?: string
+          tc_no: string
+          telefon: string
+          veli_ad_soyad: string
+          veli_telefon: string
+        }
+        Update: {
+          ad_soyad?: string
+          brans?: string
+          cinsiyet?: string
+          created_at?: string
+          dogum_tarihi?: string
+          dogum_yeri?: string
+          email?: string
+          ev_adresi?: string
+          id?: string
+          not_metni?: string | null
+          not_ortalamasi?: string
+          okul_giris_puani?: string
+          sinif?: string
+          status?: string
+          tc_no?: string
+          telefon?: string
+          veli_ad_soyad?: string
+          veli_telefon?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
