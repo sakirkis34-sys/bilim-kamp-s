@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { z } from "zod";
 import { CheckCircle2, Phone } from "lucide-react";
+import { submitApplication } from "@/lib/applications.functions";
 
 export const Route = createFileRoute("/_site/basvuru")({
   head: () => ({
