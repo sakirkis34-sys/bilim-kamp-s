@@ -9,14 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
+import { Route as AdminBasvurularRouteImport } from './routes/admin.basvurular'
 import { Route as SiteKampRouteImport } from './routes/_site.kamp'
 import { Route as SiteIletisimRouteImport } from './routes/_site.iletisim'
 import { Route as SiteGaleriRouteImport } from './routes/_site.galeri'
 import { Route as SiteEgitmenlerRouteImport } from './routes/_site.egitmenler'
 import { Route as SiteBasvuruRouteImport } from './routes/_site.basvuru'
+import { Route as AdminBasvurularIdRouteImport } from './routes/admin.basvurular.$id'
 
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
   getParentRoute: () => rootRouteImport,
@@ -25,6 +33,11 @@ const SiteIndexRoute = SiteIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => SiteRoute,
+} as any)
+const AdminBasvurularRoute = AdminBasvurularRouteImport.update({
+  id: '/basvurular',
+  path: '/basvurular',
+  getParentRoute: () => AdminRoute,
 } as any)
 const SiteKampRoute = SiteKampRouteImport.update({
   id: '/kamp',
@@ -51,61 +64,98 @@ const SiteBasvuruRoute = SiteBasvuruRouteImport.update({
   path: '/basvuru',
   getParentRoute: () => SiteRoute,
 } as any)
+const AdminBasvurularIdRoute = AdminBasvurularIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminBasvurularRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/basvuru': typeof SiteBasvuruRoute
   '/egitmenler': typeof SiteEgitmenlerRoute
   '/galeri': typeof SiteGaleriRoute
   '/iletisim': typeof SiteIletisimRoute
   '/kamp': typeof SiteKampRoute
+  '/admin/basvurular': typeof AdminBasvurularRouteWithChildren
+  '/admin/basvurular/$id': typeof AdminBasvurularIdRoute
 }
 export interface FileRoutesByTo {
+  '/admin': typeof AdminRouteWithChildren
   '/basvuru': typeof SiteBasvuruRoute
   '/egitmenler': typeof SiteEgitmenlerRoute
   '/galeri': typeof SiteGaleriRoute
   '/iletisim': typeof SiteIletisimRoute
   '/kamp': typeof SiteKampRoute
+  '/admin/basvurular': typeof AdminBasvurularRouteWithChildren
   '/': typeof SiteIndexRoute
+  '/admin/basvurular/$id': typeof AdminBasvurularIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
+  '/admin': typeof AdminRouteWithChildren
   '/_site/basvuru': typeof SiteBasvuruRoute
   '/_site/egitmenler': typeof SiteEgitmenlerRoute
   '/_site/galeri': typeof SiteGaleriRoute
   '/_site/iletisim': typeof SiteIletisimRoute
   '/_site/kamp': typeof SiteKampRoute
+  '/admin/basvurular': typeof AdminBasvurularRouteWithChildren
   '/_site/': typeof SiteIndexRoute
+  '/admin/basvurular/$id': typeof AdminBasvurularIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/basvuru'
     | '/egitmenler'
     | '/galeri'
     | '/iletisim'
     | '/kamp'
+    | '/admin/basvurular'
+    | '/admin/basvurular/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/basvuru' | '/egitmenler' | '/galeri' | '/iletisim' | '/kamp' | '/'
+  to:
+    | '/admin'
+    | '/basvuru'
+    | '/egitmenler'
+    | '/galeri'
+    | '/iletisim'
+    | '/kamp'
+    | '/admin/basvurular'
+    | '/'
+    | '/admin/basvurular/$id'
   id:
     | '__root__'
     | '/_site'
+    | '/admin'
     | '/_site/basvuru'
     | '/_site/egitmenler'
     | '/_site/galeri'
     | '/_site/iletisim'
     | '/_site/kamp'
+    | '/admin/basvurular'
     | '/_site/'
+    | '/admin/basvurular/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   SiteRoute: typeof SiteRouteWithChildren
+  AdminRoute: typeof AdminRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_site': {
       id: '/_site'
       path: ''
@@ -119,6 +169,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof SiteIndexRouteImport
       parentRoute: typeof SiteRoute
+    }
+    '/admin/basvurular': {
+      id: '/admin/basvurular'
+      path: '/basvurular'
+      fullPath: '/admin/basvurular'
+      preLoaderRoute: typeof AdminBasvurularRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/_site/kamp': {
       id: '/_site/kamp'
@@ -155,6 +212,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteBasvuruRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/admin/basvurular/$id': {
+      id: '/admin/basvurular/$id'
+      path: '/$id'
+      fullPath: '/admin/basvurular/$id'
+      preLoaderRoute: typeof AdminBasvurularIdRouteImport
+      parentRoute: typeof AdminBasvurularRoute
+    }
   }
 }
 
@@ -178,8 +242,31 @@ const SiteRouteChildren: SiteRouteChildren = {
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
+interface AdminBasvurularRouteChildren {
+  AdminBasvurularIdRoute: typeof AdminBasvurularIdRoute
+}
+
+const AdminBasvurularRouteChildren: AdminBasvurularRouteChildren = {
+  AdminBasvurularIdRoute: AdminBasvurularIdRoute,
+}
+
+const AdminBasvurularRouteWithChildren = AdminBasvurularRoute._addFileChildren(
+  AdminBasvurularRouteChildren,
+)
+
+interface AdminRouteChildren {
+  AdminBasvurularRoute: typeof AdminBasvurularRouteWithChildren
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminBasvurularRoute: AdminBasvurularRouteWithChildren,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   SiteRoute: SiteRouteWithChildren,
+  AdminRoute: AdminRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

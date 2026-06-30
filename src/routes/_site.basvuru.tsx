@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { z } from "zod";
 import { CheckCircle2, Phone } from "lucide-react";
+import { submitApplication } from "@/lib/applications.functions";
 
 export const Route = createFileRoute("/_site/basvuru")({
   head: () => ({
@@ -41,8 +43,10 @@ type FormState = Partial<Record<keyof z.infer<typeof schema>, string>>;
 function BasvuruPage() {
   const [errors, setErrors] = useState<FormState>({});
   const [submitted, setSubmitted] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const submit = useServerFn(submitApplication);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const raw = {
@@ -74,14 +78,29 @@ function BasvuruPage() {
       return;
     }
     setErrors({});
-    // Forward via WhatsApp to the program coordinator
     const d = parsed.data;
+    setSaving(true);
+    try {
+      await submit({ data: {
+        adSoyad: d.adSoyad, tcNo: d.tcNo, dogumTarihi: d.dogumTarihi, dogumYeri: d.dogumYeri,
+        cinsiyet: d.cinsiyet, telefon: d.telefon, veliAdSoyad: d.veliAdSoyad, veliTelefon: d.veliTelefon,
+        email: d.email, evAdresi: d.evAdresi, sinif: d.sinif, okulGirisPuani: d.okulGirisPuani,
+        notOrtalamasi: d.notOrtalamasi, brans: d.brans, not: d.not,
+      } });
+    } catch (err) {
+      setSaving(false);
+      setErrors({ adSoyad: "Başvuru kaydedilemedi, lütfen tekrar deneyin." });
+      return;
+    }
+    setSaving(false);
+    // Also forward via WhatsApp to the program coordinator
     const msg = encodeURIComponent(
       `Yusuf Durmuş Akademi & Bilim Kampları Başvurusu\n\nÖğrenci: ${d.adSoyad}\nT.C. No: ${d.tcNo}\nDoğum Tarihi: ${d.dogumTarihi}\nDoğum Yeri: ${d.dogumYeri}\nCinsiyet: ${d.cinsiyet}\nOkul/Sınıf: ${d.sinif}\nOkul Giriş Puanı: ${d.okulGirisPuani}\nNot Ortalaması: ${d.notOrtalamasi}\nBranş: ${d.brans}\nEv Adresi: ${d.evAdresi}\nVeli: ${d.veliAdSoyad}\nVeli Telefon: ${d.veliTelefon}\nTelefon: ${d.telefon}\nE-posta: ${d.email}${d.not ? `\nNot: ${d.not}` : ""}`,
     );
     window.open(`https://wa.me/905325112502?text=${msg}`, "_blank", "noopener,noreferrer");
     setSubmitted(true);
   }
+
 
   if (submitted) {
     return (
@@ -142,8 +161,8 @@ function BasvuruPage() {
         </div>
         {errors.kurallar && <p className="sm:col-span-2 text-sm text-destructive -mt-3">{errors.kurallar}</p>}
         <div className="sm:col-span-2 flex justify-end">
-          <button type="submit" className="inline-flex h-11 items-center rounded-md bg-primary text-primary-foreground px-7 text-sm font-medium hover:bg-primary/90 transition">
-            Başvuruyu Gönder
+          <button type="submit" disabled={saving} className="inline-flex h-11 items-center rounded-md bg-primary text-primary-foreground px-7 text-sm font-medium hover:bg-primary/90 transition disabled:opacity-60">
+            {saving ? "Gönderiliyor..." : "Başvuruyu Gönder"}
           </button>
         </div>
       </form>
