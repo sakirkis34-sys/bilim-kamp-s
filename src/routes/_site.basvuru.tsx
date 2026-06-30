@@ -161,8 +161,8 @@ function BasvuruPage() {
         </div>
         {errors.kurallar && <p className="sm:col-span-2 text-sm text-destructive -mt-3">{errors.kurallar}</p>}
         <div className="sm:col-span-2 flex justify-end">
-          <button type="submit" className="inline-flex h-11 items-center rounded-md bg-primary text-primary-foreground px-7 text-sm font-medium hover:bg-primary/90 transition">
-            Başvuruyu Gönder
+          <button type="submit" disabled={saving} className="inline-flex h-11 items-center rounded-md bg-primary text-primary-foreground px-7 text-sm font-medium hover:bg-primary/90 transition disabled:opacity-60">
+            {saving ? "Gönderiliyor..." : "Başvuruyu Gönder"}
           </button>
         </div>
       </form>
